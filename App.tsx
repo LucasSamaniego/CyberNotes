@@ -92,9 +92,9 @@ const App: React.FC = () => {
               </h1>
               
               <p className="text-slate-500 font-mono text-sm md:text-base border-l-2 border-cyan-500/50 pl-4 text-left">
-                > SYSTEM READY <br/>
-                > NEURAL LINK ESTABLISHED <br/>
-                > SELECT A DATA NODE TO BEGIN
+                &gt; SYSTEM READY <br/>
+                &gt; NEURAL LINK ESTABLISHED <br/>
+                &gt; SELECT A DATA NODE TO BEGIN
               </p>
             </div>
           </div>

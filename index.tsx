@@ -14,11 +14,11 @@ interface ErrorBoundaryState {
 
 // Fix: Pass interfaces to generic Component type to properly type this.state and this.props
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor(props: ErrorBoundaryProps) {
-    super(props);
-    // Fix: Initialize state with typed object
-    this.state = { hasError: false, error: null };
-  }
+  // Fix: Explicitly declare state property for TypeScript
+  public state: ErrorBoundaryState = { 
+    hasError: false, 
+    error: null 
+  };
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     return { hasError: true, error };
