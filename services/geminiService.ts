@@ -1,7 +1,8 @@
 import { GoogleGenAI } from "@google/genai";
 import { AIActionType } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Removed top-level initialization to prevent crash on load if process.env is undefined in browser
+// const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const SYSTEM_INSTRUCTION = `You are a high-tech AI assistant integrated into a futuristic "CyberDeck" interface. 
 Your responses should be concise, efficient, and helpful. 
@@ -26,6 +27,9 @@ export const processNoteWithAI = async (content: string, action: AIActionType): 
   }
 
   try {
+    // Initialize client here to ensure environment is ready and catch config errors gracefully
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: `${prompt}\n\n"${content}"`,
@@ -37,6 +41,7 @@ export const processNoteWithAI = async (content: string, action: AIActionType): 
     return response.text || "Error: No data received from the neural net.";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "Critical Failure: Neural link disrupted. Unable to process request.";
+    // Return a user-friendly error string that fits the theme
+    return "Critical Failure: Neural link disrupted. Check API Configuration or Network Connection.";
   }
 };
